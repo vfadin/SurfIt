@@ -20,9 +20,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupPositionProvider
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.surfit.domain.entity.Car
+import com.example.surfit.ui.components.SearchTextField
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, event: (HomeEvent) -> Unit) {
@@ -34,6 +37,14 @@ fun HomeScreen(viewModel: HomeViewModel, event: (HomeEvent) -> Unit) {
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
+            item {
+                SearchTextField(
+                    value = viewModel.searchState,
+                    onValueChange = {
+                        event(HomeEvent.OnSearchTextChanged(it))
+                    }
+                )
+            }
             items(cars) { car ->
                 CarItem(car, event)
             }

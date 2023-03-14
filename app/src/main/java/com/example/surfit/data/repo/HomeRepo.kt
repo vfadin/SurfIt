@@ -13,4 +13,8 @@ class HomeRepo(
     override suspend fun getCars(): List<Car> {
         return database.dao().getAll().map { it.toCar() }
     }
+
+    override suspend fun getCar(id: Int): Car {
+        TODO("Not yet implemented")
+    }
 }

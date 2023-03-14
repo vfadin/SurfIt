@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.surfit.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +23,10 @@ class HomeFragment : Fragment() {
                 HomeScreen(viewModel) { event ->
                     when (event) {
                         HomeEvent.OnItemClick -> {}
+                        is HomeEvent.OnSearchTextChanged -> {
+                            println(event.text)
+                            viewModel.onSearchTextChanged(event.text)
+                        }
                     }
                 }
             }
