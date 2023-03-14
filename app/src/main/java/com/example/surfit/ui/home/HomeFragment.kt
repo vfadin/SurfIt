@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.surfit.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +23,7 @@ class HomeFragment : Fragment() {
             setContent {
                 HomeScreen(viewModel) { event ->
                     when (event) {
-                        else -> {}
+                        HomeEvent.OnItemClick -> {}
                     }
                 }
             }
