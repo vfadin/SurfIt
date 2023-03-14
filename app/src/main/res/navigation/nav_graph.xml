@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/HomeFragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
-        android:id="@+id/HomeFragment"
-        android:name="com.example.surfit.ui.homeFragment.HomeFragment"
+        android:id="@+id/home_fragment"
+        android:name="com.example.surfit.ui.home.HomeFragment"
         android:label="@string/home_title" />
 
 </navigation>
