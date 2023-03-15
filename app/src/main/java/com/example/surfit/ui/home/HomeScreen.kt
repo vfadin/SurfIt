@@ -111,9 +111,8 @@ fun CarItem(car: Car, event: (HomeEvent) -> Unit) {
             .padding(vertical = 8.dp)
             .height(200.dp)
             .clip(RoundedCornerShape(16.dp))
-            .clickable { event(HomeEvent.OnItemClick) }
+            .clickable { event(HomeEvent.OnItemClick(car.id)) }
     ) {
-        println(car)
         GlideImage(
             model = car.photo,
             contentDescription = null,

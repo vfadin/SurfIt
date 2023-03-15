@@ -4,6 +4,7 @@ import android.net.Uri
 import com.example.surfit.data.dto.ApiCarsDatabase
 
 data class Car(
+    val id: Int = -1,
     val name: String,
     val photo: Uri,
     val year: Int,
@@ -12,6 +13,7 @@ data class Car(
 )
 
 fun ApiCarsDatabase.toCar() = Car(
+    id = id,
     name = name,
     year = year,
     photo = Uri.EMPTY,

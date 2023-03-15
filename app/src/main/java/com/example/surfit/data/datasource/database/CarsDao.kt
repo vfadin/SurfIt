@@ -24,6 +24,9 @@ interface CarsDao {
     @Query("SELECT * FROM $TABLE_NAME")
     suspend fun getAll(): List<ApiCarsDatabase>
 
+    @Query("SELECT * FROM $TABLE_NAME WHERE id = :id")
+    suspend fun getById(id: Int): ApiCarsDatabase
+
     @Query("SELECT COUNT(*) FROM $TABLE_NAME")
     suspend fun size(): Int
 }

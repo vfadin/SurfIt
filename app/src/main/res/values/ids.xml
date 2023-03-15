@@ -2,4 +2,5 @@
 <resources>
     <item name="home_fragment" type="id" />
     <item name="add_new_car_fragment" type="id" />
+    <item name="full_car_info_fragment" type="id" />
 </resources>

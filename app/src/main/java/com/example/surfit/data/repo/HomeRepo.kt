@@ -11,11 +11,12 @@ class HomeRepo(
 ) : IHomeRepo {
 
     override suspend fun getCars(): List<Car> {
+        println(database.dao().getAll())
         return database.dao().getAll().map { it.toCar() }
     }
 
     override suspend fun getCar(id: Int): Car {
-        TODO("Not yet implemented")
+        return database.dao().getById(id).toCar()
     }
 
     override suspend fun insertCar(car: Car) {

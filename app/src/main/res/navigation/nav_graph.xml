@@ -12,5 +12,9 @@
         android:id="@+id/add_new_car_fragment"
         android:name="com.example.surfit.ui.addNewCar.AddNewCarFragment"
         android:label="AddNewCarFragment" />
+    <fragment
+        android:id="@+id/full_car_info_fragment"
+        android:name="com.example.surfit.ui.fullCarInfo.FullCarInfoFragment"
+        android:label="FullCarInfoFragment" />
 
 </navigation>

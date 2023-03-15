@@ -2,12 +2,14 @@ package com.example.surfit.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.surfit.R
@@ -33,7 +35,8 @@ fun CustomTopBar(
                 if (isBackIconVisible) {
                     Box(
                         modifier = Modifier
-                            .size(24.dp)
+                            .size(32.dp)
+                            .clip(CircleShape)
                             .clickable { onBackIconClick() },
                         contentAlignment = Alignment.Center
                     ) {
@@ -50,7 +53,8 @@ fun CustomTopBar(
                 if (isAddIconVisible) {
                     Box(
                         modifier = Modifier
-                            .size(24.dp)
+                            .size(32.dp)
+                            .clip(CircleShape)
                             .clickable { onAddIconClick() },
                         contentAlignment = Alignment.Center
                     ) {
@@ -64,7 +68,8 @@ fun CustomTopBar(
                 Spacer(modifier = Modifier.width(16.dp))
                 Box(
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(32.dp)
+                        .clip(CircleShape)
                         .clickable { onSettingsIconClick() },
                     contentAlignment = Alignment.Center
                 ) {
