@@ -45,4 +45,7 @@
     </string>
     <string name="home_title">Главная</string>
     <string name="search_placeholder">Поиск</string>
+    <string name="placeholder_input_name">Введите название</string>
+    <string name="placeholder_input_year">Введите год выпуска</string>
+    <string name="placeholder_input_engine_capacity">Введите объём двигателя</string>
 </resources>

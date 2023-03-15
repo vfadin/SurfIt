@@ -32,7 +32,7 @@ fun CustomTextField(
     value: String,
     type: FieldType = FieldType.Outlined,
     onValueChange: (String) -> Unit = {},
-    contentTextStyle: TextStyle,
+    contentTextStyle: TextStyle = TextStyle(),
     placeHolderStyle: TextStyle = contentTextStyle.copy(color = PlaceholderGray),
     placeHolderString: String,
     enabled: Boolean = true,

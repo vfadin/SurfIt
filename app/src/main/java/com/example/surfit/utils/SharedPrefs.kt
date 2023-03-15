@@ -4,14 +4,24 @@ import android.content.Context
 
 class SharedPreferences(private val context: Context) {
 
-    fun saveAttemptNumber(number: Int) {
+    fun saveViewAttemptNumber(number: Int) {
         context.getSharedPreferences("number", Context.MODE_PRIVATE)
             .edit().putInt("number", number).apply()
     }
 
-    fun restoreAttemptNumber(): Int {
+    fun restoreViewAttemptNumber(): Int {
         return context.getSharedPreferences("number", Context.MODE_PRIVATE)
             .getInt("number", 0)
+    }
+
+    fun saveAddAttemptNumber(number: Int) {
+        context.getSharedPreferences("number_add", Context.MODE_PRIVATE)
+            .edit().putInt("number", number).apply()
+    }
+
+    fun restoreAddAttemptNumber(): Int {
+        return context.getSharedPreferences("number_add", Context.MODE_PRIVATE)
+            .getInt("number_add", 0)
     }
 
     fun savePurchaseToken(token: String) {

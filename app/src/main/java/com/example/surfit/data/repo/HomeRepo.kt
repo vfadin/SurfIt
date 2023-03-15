@@ -17,4 +17,10 @@ class HomeRepo(
     override suspend fun getCar(id: Int): Car {
         TODO("Not yet implemented")
     }
+
+    override suspend fun insertCar(car: Car) {
+        car.apply {
+            database.dao().insert(ApiCarsDatabase(0, name, year, engineCapacity, createdAt))
+        }
+    }
 }

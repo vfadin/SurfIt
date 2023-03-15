@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.surfit.domain.entity.Car
+import com.example.surfit.ui.components.CustomTopBar
 import com.example.surfit.ui.components.SearchTextField
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -57,7 +58,11 @@ fun HomeScreen(viewModel: HomeViewModel, event: (HomeEvent) -> Unit) {
                         Text(text = "Payment method: Credit Card")
                     }
                 }
-                Button(modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp), onClick = { /*TODO*/ }) {
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    onClick = { /*TODO*/ }) {
                     Text(text = "Pay")
                 }
                 Spacer(modifier = Modifier.height(40.dp))
@@ -65,7 +70,15 @@ fun HomeScreen(viewModel: HomeViewModel, event: (HomeEvent) -> Unit) {
         },
         sheetState = modalSheetState
     ) {
-        Scaffold { paddingValues ->
+        Scaffold(
+            topBar = {
+                CustomTopBar(
+                    title = "Главная",
+                    isAddIconVisible = true,
+                    onAddIconClick = { event(HomeEvent.OnAddNewClick) }
+                )
+            }
+        ) { paddingValues ->
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -95,12 +108,14 @@ fun CarItem(car: Car, event: (HomeEvent) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(vertical = 8.dp)
             .height(200.dp)
             .clip(RoundedCornerShape(16.dp))
             .clickable { event(HomeEvent.OnItemClick) }
     ) {
+        println(car)
         GlideImage(
-            model = "https://www.mentoday.ru/upload/img_cache/411/41138d75d07cc38b36610e25985734a7_ce_1518x1012x117x0.png",
+            model = car.photo,
             contentDescription = null,
             contentScale = ContentScale.Crop
         )
