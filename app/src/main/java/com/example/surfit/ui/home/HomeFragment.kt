@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.surfit.utils.Constants.FREE_ATTEMPTS_COUNT
+import com.example.surfit.utils.SharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,14 +24,22 @@ class HomeFragment : Fragment() {
             setContent {
                 HomeScreen(viewModel) { event ->
                     when (event) {
-                        HomeEvent.OnItemClick -> {}
-                        is HomeEvent.OnSearchTextChanged -> {
-                            println(event.text)
-                            viewModel.onSearchTextChanged(event.text)
+                        HomeEvent.OnItemClick -> {
+                            val prefs = SharedPreferences(requireContext())
+                            val prevAttemptNumber = prefs.restoreAttemptNumber()
+                            if (prevAttemptNumber < FREE_ATTEMPTS_COUNT) {
+                                prefs.saveAttemptNumber(prevAttemptNumber + 1)
+                                // TODO: add navigate
+                            }
                         }
+                        is HomeEvent.OnSearchTextChanged -> viewModel.onSearchTextChanged(event.text)
                     }
                 }
             }
         }
+    }
+
+    private fun doPurchase() {
+        SharedPreferences(requireContext()).savePurchaseToken("PAID_TOKEN")
     }
 }
