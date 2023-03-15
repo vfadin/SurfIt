@@ -44,4 +44,5 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="home_title">Главная</string>
+    <string name="search_placeholder">Поиск</string>
 </resources>
