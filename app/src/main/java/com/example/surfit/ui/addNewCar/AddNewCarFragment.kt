@@ -28,13 +28,14 @@ class AddNewCarFragment : Fragment() {
                         when (event) {
                             is AddNewCarEvent.OnSaveClick -> {
                                 viewModel.onEvent(event)
-                                if(viewModel.screenState.isValuesValid) {
+                                if (viewModel.screenState.isValuesValid) {
                                     findNavController().navigateUp()
                                 }
                             }
                             is AddNewCarEvent.OnDoPurchaseClick -> {
                                 doPurchase()
                             }
+                            AddNewCarEvent.OnBackClick -> findNavController().navigateUp()
                             else -> {
                                 viewModel.onEvent(event)
                             }

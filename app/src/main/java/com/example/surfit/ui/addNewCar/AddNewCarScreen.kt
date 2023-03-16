@@ -37,7 +37,14 @@ import java.io.File
 
 @Composable
 fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Unit) {
-    Scaffold(topBar = { CustomTopBar(title = "Добавить автомобиль") }) { paddingValues ->
+    Scaffold(
+        topBar = {
+            CustomTopBar(
+                title = stringResource(R.string.title_add_car),
+                isBackIconVisible = true,
+                onBackIconClick = { event(AddNewCarEvent.OnBackClick) })
+        }
+    ) { paddingValues ->
         val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
@@ -101,7 +108,7 @@ fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Un
                         }
                     }
                 ) {
-                    Text(text = "Сохранить")
+                    Text(text = stringResource(R.string.label_save))
                 }
             }
         }
@@ -144,7 +151,7 @@ fun PickImageButton(event: (AddNewCarEvent) -> Unit) {
                 )
             }
         ) {
-            Text(text = "Добавить фото")
+            Text(text = stringResource(R.string.label_add_photo))
         }
     } else {
         Column {
@@ -158,7 +165,7 @@ fun PickImageButton(event: (AddNewCarEvent) -> Unit) {
                     )
                 }
             ) {
-                Text(text = "Изменить фото")
+                Text(text = stringResource(R.string.label_change_photo))
             }
             GlideImage(
                 model = imageUri,

@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.surfit.R
 import com.example.surfit.ui.components.CustomTopBar
@@ -44,10 +45,10 @@ fun HomeScreen(viewModel: HomeViewModel, event: (HomeEvent) -> Unit) {
             selectedIndex = viewModel.chosenSortIndex,
             sorts = viewModel.sortList.map {
                 when (it) {
-                    Sorts.Name -> "По названию"
-                    Sorts.Year -> "По году выпуска"
-                    Sorts.EngineCapacity -> "По объему двигателя"
-                    Sorts.Default -> "По умолчанию"
+                    Sorts.Name -> stringResource(R.string.sort_name)
+                    Sorts.Year -> stringResource(R.string.sort_year)
+                    Sorts.EngineCapacity -> stringResource(R.string.sort_capacity)
+                    Sorts.Default -> stringResource(R.string.sort_default)
                 }
             },
             onDismissClick = { isSortsDialogVisible = false }
@@ -58,7 +59,7 @@ fun HomeScreen(viewModel: HomeViewModel, event: (HomeEvent) -> Unit) {
     Scaffold(
         topBar = {
             CustomTopBar(
-                title = "Главная",
+                title = stringResource(R.string.title_main),
                 isAddIconVisible = true,
                 isSettingsIconVisible = true,
                 onSettingsIconClick = { event(HomeEvent.OnSettingsClick) },
