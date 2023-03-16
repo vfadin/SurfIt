@@ -22,6 +22,9 @@ class HomeViewModel @Inject constructor(
     private var carsList = listOf<Car>()
     private val _carsStateFlow = MutableStateFlow<List<Car>?>(null)
     val carsStateFlow = _carsStateFlow.asStateFlow().filterNotNull()
+    val sortList = listOf(Sorts.Default, Sorts.Name, Sorts.EngineCapacity, Sorts.Year)
+    var chosenSortIndex = 0
+        private set
     var searchState by mutableStateOf("")
         private set
     var purchaseDialogVisible by mutableStateOf(false)
@@ -45,6 +48,16 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun onSortChosen(sortId: Int) {
+        chosenSortIndex = sortId
+        _carsStateFlow.value = when (sortList[sortId]) {
+            Sorts.Name -> _carsStateFlow.value?.sortedBy { it.name }
+            Sorts.Year -> _carsStateFlow.value?.sortedBy { it.year }
+            Sorts.EngineCapacity -> _carsStateFlow.value?.sortedBy { it.engineCapacity }
+            Sorts.Default -> carsList
+        }
+    }
+
     fun showPurchase() {
         purchaseDialogVisible = true
     }
@@ -52,4 +65,11 @@ class HomeViewModel @Inject constructor(
     fun dismissPurchase() {
         purchaseDialogVisible = false
     }
+}
+
+sealed class Sorts {
+    object Default : Sorts()
+    object Name : Sorts()
+    object Year : Sorts()
+    object EngineCapacity : Sorts()
 }
