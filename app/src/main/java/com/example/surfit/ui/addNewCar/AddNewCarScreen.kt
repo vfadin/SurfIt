@@ -32,15 +32,17 @@ import com.example.surfit.ui.components.CustomTextField
 import com.example.surfit.ui.components.CustomTopBar
 import com.example.surfit.ui.components.ErrorTextRow
 import com.example.surfit.utils.FileUtil
+import kotlinx.coroutines.launch
 import java.io.File
 
 @Composable
 fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Unit) {
     Scaffold(topBar = { CustomTopBar(title = "Добавить автомобиль") }) { paddingValues ->
+        val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(scrollState)
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
@@ -89,9 +91,15 @@ fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Un
                 )
                 ErrorTextRow(text = engineCapacityError)
                 PickImageButton(event)
+                val coroutineScope = rememberCoroutineScope()
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { event(AddNewCarEvent.OnSaveClick) }
+                    onClick = {
+                        event(AddNewCarEvent.OnSaveClick)
+                        coroutineScope.launch {
+                            scrollState.animateScrollTo(0)
+                        }
+                    }
                 ) {
                     Text(text = "Сохранить")
                 }
