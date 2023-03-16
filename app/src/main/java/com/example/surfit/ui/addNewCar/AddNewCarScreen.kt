@@ -28,6 +28,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.surfit.R
 import com.example.surfit.ui.components.CustomTextField
 import com.example.surfit.ui.components.CustomTopBar
+import com.example.surfit.ui.components.ErrorTextRow
 
 @Composable
 fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Unit) {
@@ -43,46 +44,46 @@ fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Un
                 val focusManager = LocalFocusManager.current
                 CustomTextField(
                     singleLine = true,
-                    modifier = Modifier.padding(vertical = 16.dp),
+                    modifier = Modifier.padding(top = 16.dp, bottom = 2.dp),
                     value = name,
                     onValueChange = { event(AddNewCarEvent.OnNameChanged(it)) },
-                    placeHolderString = stringResource(R.string.placeholder_input_name),
+                    placeHolderString = stringResource(R.string.placeholder_input_name) + "*",
                     keyboardActions = KeyboardActions(
                         onDone = { focusManager.moveFocus(FocusDirection.Next) }
-                    )
+                    ),
+                    isError = nameError.isNotEmpty()
                 )
+                ErrorTextRow(text = nameError)
                 CustomTextField(
                     singleLine = true,
-                    modifier = Modifier.padding(vertical = 16.dp),
+                    modifier = Modifier.padding(top = 16.dp, bottom = 2.dp),
                     value = year,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { string ->
-                        string.lastOrNull()?.apply {
-                            if (isDigit())
-                                event(AddNewCarEvent.OnYearChanged(string))
-                        }
+                        event(AddNewCarEvent.OnYearChanged(string))
                     },
-                    placeHolderString = stringResource(R.string.placeholder_input_year),
+                    placeHolderString = stringResource(R.string.placeholder_input_year) + "*",
                     keyboardActions = KeyboardActions(
                         onDone = { focusManager.moveFocus(FocusDirection.Next) }
-                    )
+                    ),
+                    isError = yearError.isNotEmpty()
                 )
+                ErrorTextRow(text = yearError)
                 CustomTextField(
                     singleLine = true,
-                    modifier = Modifier.padding(vertical = 16.dp),
+                    modifier = Modifier.padding(top = 16.dp, bottom = 2.dp),
                     value = engineCapacity,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     onValueChange = { string ->
-                        string.lastOrNull()?.apply {
-                            if (isDigit() || this == '.')
-                                event(AddNewCarEvent.OnEngineCapacityChanged(string))
-                        }
+                        event(AddNewCarEvent.OnEngineCapacityChanged(string))
                     },
                     placeHolderString = stringResource(R.string.placeholder_input_engine_capacity),
                     keyboardActions = KeyboardActions(
                         onDone = { focusManager.clearFocus() }
-                    )
+                    ),
+                    isError = engineCapacityError.isNotEmpty()
                 )
+                ErrorTextRow(text = engineCapacityError)
                 PickImageButton(event)
                 Button(
                     modifier = Modifier.fillMaxWidth(),

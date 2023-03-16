@@ -28,7 +28,9 @@ class AddNewCarFragment : Fragment() {
                         when (event) {
                             is AddNewCarEvent.OnSaveClick -> {
                                 viewModel.onEvent(event)
-                                findNavController().navigateUp()
+                                if(viewModel.screenState.isValuesValid) {
+                                    findNavController().navigateUp()
+                                }
                             }
                             is AddNewCarEvent.OnDoPurchaseClick -> {
                                 doPurchase()
