@@ -22,7 +22,7 @@ class HomeRepo(
     }
 
     override suspend fun getCars(): List<Car> {
-        println(database.carsDao().getAll().map { it.toCar() })
+        initialInsert()
         return database.carsDao().getAll().map { it.toCar() }
     }
 
@@ -61,5 +61,52 @@ class HomeRepo(
 
     override suspend fun clearIds() {
         database.idsDao().deleteAllIds()
+    }
+
+    private suspend fun initialInsert() {
+        database.carsDao().apply {
+            if (size() == 0) {
+                insert(
+                    ApiCarsDatabase(
+                        0,
+                        "Москвич 3",
+                        2023,
+                        2.0,
+                        "https://lh3.googleusercontent.com/md7JIw44TfEtGhbw8J_vnSdsNJytork83Br4eft1YOFs56X0q3PChdoRgrrsU8WoWJ3UD1pp8yiXttZIpNrS9hKW4CkxwbxPLv2rQH5PtC9R=s1500",
+                        createdAt = "15.03.2023"
+                    )
+                )
+                insert(
+                    ApiCarsDatabase(
+                        0,
+                        "Москвич 412",
+                        1970,
+                        1.0,
+                        "https://s1.avtoclassika.com/uploads/files/news/49/files/moskwich-412-1.jpg",
+                        createdAt = "15.03.2023"
+                    )
+                )
+                insert(
+                    ApiCarsDatabase(
+                        0,
+                        "Toyota",
+                        2020,
+                        2.0,
+                        "",
+                        createdAt = "15.03.2023"
+                    )
+                )
+                insert(
+                    ApiCarsDatabase(
+                        0,
+                        "BMW 5",
+                        2023,
+                        4.4,
+                        "https://img-c.drive.ru/models.large.main.images/0000/000/000/001/b2a/48d957a0c1fb48cc-main.png",
+                        createdAt = "16.03.2023"
+                    )
+                )
+            }
+        }
     }
 }

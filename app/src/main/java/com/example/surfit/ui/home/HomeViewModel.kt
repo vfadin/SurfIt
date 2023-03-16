@@ -30,10 +30,6 @@ class HomeViewModel @Inject constructor(
     var purchaseDialogVisible by mutableStateOf(false)
         private set
 
-    init {
-        refresh()
-    }
-
     fun refresh() {
         viewModelScope.launch(Dispatchers.IO) {
             carsList = homeRepo.getCars()
