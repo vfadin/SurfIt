@@ -32,7 +32,10 @@ fun CustomTopBar(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-            Row(Modifier.align(Alignment.CenterStart)) {
+            Row(
+                modifier = Modifier.align(Alignment.CenterStart),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 if (isBackIconVisible) {
                     Box(
                         modifier = Modifier

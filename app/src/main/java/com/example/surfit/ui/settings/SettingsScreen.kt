@@ -15,10 +15,13 @@ import com.example.surfit.R
 import com.example.surfit.ui.components.CustomTopBar
 
 @Composable
-fun SettingsScreen(onRestoreClick: () -> Unit) {
+fun SettingsScreen(onRestoreClick: () -> Unit, onBackIconClick: () -> Boolean, ) {
     Scaffold(
         topBar = {
-            CustomTopBar(title = stringResource(R.string.title_settings), isSettingsIconVisible = false)
+            CustomTopBar(title = stringResource(R.string.title_settings),
+                isSettingsIconVisible = false,
+                isBackIconVisible = true,
+                onBackIconClick = { onBackIconClick() })
         }
     ) { paddingValues ->
         Box(

@@ -37,7 +37,14 @@ import java.io.File
 
 @Composable
 fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Unit) {
-    Scaffold(topBar = { CustomTopBar(title = stringResource(R.string.title_add_car)) }) { paddingValues ->
+    Scaffold(
+        topBar = {
+            CustomTopBar(
+                title = stringResource(R.string.title_add_car),
+                isBackIconVisible = true,
+                onBackIconClick = { event(AddNewCarEvent.OnBackClick) })
+        }
+    ) { paddingValues ->
         val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
