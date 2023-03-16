@@ -19,18 +19,21 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val homeRepo: IHomeRepo,
 ) : ViewModel() {
-    private val carsList = mutableListOf<Car>()
+    private var carsList = listOf<Car>()
     private val _carsStateFlow = MutableStateFlow<List<Car>?>(null)
     val carsStateFlow = _carsStateFlow.asStateFlow().filterNotNull()
     var searchState by mutableStateOf("")
         private set
+    var purchaseDialogVisible by mutableStateOf(false)
+        private set
 
     init {
+        refresh()
+    }
+
+    fun refresh() {
         viewModelScope.launch(Dispatchers.IO) {
-            carsList.apply {
-                clear()
-                addAll(homeRepo.getCars())
-            }
+            carsList = homeRepo.getCars()
             _carsStateFlow.value = carsList
         }
     }
@@ -40,5 +43,13 @@ class HomeViewModel @Inject constructor(
         _carsStateFlow.value = carsList.filter {
             it.name.contains(text, true)
         }
+    }
+
+    fun showPurchase() {
+        purchaseDialogVisible = true
+    }
+
+    fun dismissPurchase() {
+        purchaseDialogVisible = false
     }
 }

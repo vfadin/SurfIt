@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import com.example.surfit.Screen
 import com.example.surfit.navigate
 import com.example.surfit.ui.theme.SurfItTheme
-import com.example.surfit.utils.Constants.FREE_VIEW_ATTEMPTS_COUNT
+import com.example.surfit.utils.Constants.FREE_ADD_ATTEMPTS_COUNT
 import com.example.surfit.utils.SharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,22 +24,30 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        viewModel.refresh()
         return ComposeView(requireContext()).apply {
             setContent {
                 SurfItTheme {
                     HomeScreen(viewModel) { event ->
                         when (event) {
-                            HomeEvent.OnAddNewClick -> navigate(Screen.AddNewCar, Screen.Home)
                             is HomeEvent.OnItemClick -> {
-                                val prefs = SharedPreferences(requireContext())
-                                val prevAttemptNumber = prefs.restoreViewAttemptNumber()
-                                // TODO: Replace with datastore
-//                            if (prevAttemptNumber < FREE_VIEW_ATTEMPTS_COUNT) {
-                                prefs.saveViewAttemptNumber(prevAttemptNumber + 1)
                                 navigate(Screen.FullCarInfo(event.id), Screen.Home)
-//                            }
                             }
-                            is HomeEvent.OnSearchTextChanged -> viewModel.onSearchTextChanged(event.text)
+                            is HomeEvent.OnSearchTextChanged -> {
+                                viewModel.onSearchTextChanged(event.text)
+                            }
+                            HomeEvent.OnAddNewClick -> {
+                                val prefs = SharedPreferences(context)
+                                val attempt = prefs.restoreAddAttemptNumber()
+                                val token = prefs.restorePurchaseToken()
+                                if (attempt < FREE_ADD_ATTEMPTS_COUNT || token == "PAID_TOKEN") {
+                                    navigate(Screen.AddNewCar, Screen.Home)
+                                } else {
+                                    viewModel.showPurchase()
+                                }
+                            }
+                            HomeEvent.OnDoPurchaseClick -> doPurchase()
+                            HomeEvent.OnDismissPurchaseClick -> viewModel.dismissPurchase()
                         }
                     }
                 }

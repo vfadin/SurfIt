@@ -16,7 +16,7 @@ class SharedPreferences(private val context: Context) {
 
     fun saveAddAttemptNumber(number: Int) {
         context.getSharedPreferences("number_add", Context.MODE_PRIVATE)
-            .edit().putInt("number", number).apply()
+            .edit().putInt("number_add", number).apply()
     }
 
     fun restoreAddAttemptNumber(): Int {

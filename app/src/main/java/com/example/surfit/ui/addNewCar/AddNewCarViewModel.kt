@@ -37,6 +37,7 @@ class AddNewCarViewModel @Inject constructor(
             AddNewCarEvent.OnSaveClick -> {
                 onSaveClick()
             }
+            else -> {}
         }
     }
 

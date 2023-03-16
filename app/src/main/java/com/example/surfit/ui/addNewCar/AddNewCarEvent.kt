@@ -8,4 +8,5 @@ sealed class AddNewCarEvent {
     data class OnEngineCapacityChanged(val text: String) : AddNewCarEvent()
     data class OnImageChosen(val uri: Uri) : AddNewCarEvent()
     object OnSaveClick : AddNewCarEvent()
+    object OnDoPurchaseClick : AddNewCarEvent()
 }

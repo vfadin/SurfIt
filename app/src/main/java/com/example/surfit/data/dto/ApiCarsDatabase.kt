@@ -3,8 +3,9 @@ package com.example.surfit.data.dto
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.surfit.utils.Constants.CARS_TABLE_NAME
 
-@Entity(tableName = "cars")
+@Entity(tableName = CARS_TABLE_NAME)
 data class ApiCarsDatabase(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo

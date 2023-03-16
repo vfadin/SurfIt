@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dagger.hilt.components.SingletonComponent
@@ -20,7 +21,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideContactDatabase(
-        @ApplicationContext appContext: Context
+        @ApplicationContext appContext: Context,
     ): CarsDatabase {
         return CarsDatabase.getDatabase(appContext)
     }
@@ -36,7 +37,7 @@ object RepositoryModule {
 
     @Provides
     @ActivityRetainedScoped
-    fun provideHomeRepo(database: CarsDatabase): IHomeRepo {
-        return HomeRepo(database)
+    fun provideHomeRepo(database: CarsDatabase, @ApplicationContext context: Context): IHomeRepo {
+        return HomeRepo(database, context)
     }
 }

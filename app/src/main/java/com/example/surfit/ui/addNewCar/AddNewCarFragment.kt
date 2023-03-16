@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.surfit.ui.theme.SurfItTheme
-import com.example.surfit.utils.Constants.FREE_ADD_ATTEMPTS_COUNT
 import com.example.surfit.utils.SharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,18 +25,25 @@ class AddNewCarFragment : Fragment() {
             setContent {
                 SurfItTheme {
                     AddNewCarScreen(viewModel) { event ->
-                        if (event is AddNewCarEvent.OnSaveClick) {
-                            val prefs = SharedPreferences(requireContext())
-                            if (prefs.restoreAddAttemptNumber() < FREE_ADD_ATTEMPTS_COUNT) {
-                                prefs.saveAddAttemptNumber(prefs.restoreAddAttemptNumber() + 1)
+                        when (event) {
+                            is AddNewCarEvent.OnSaveClick -> {
+                                viewModel.onEvent(event)
+                                findNavController().navigateUp()
+                            }
+                            is AddNewCarEvent.OnDoPurchaseClick -> {
+                                doPurchase()
+                            }
+                            else -> {
                                 viewModel.onEvent(event)
                             }
-                        } else {
-                            viewModel.onEvent(event)
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun doPurchase() {
+        SharedPreferences(requireContext()).savePurchaseToken("PAID_TOKEN")
     }
 }
