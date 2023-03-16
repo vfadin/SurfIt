@@ -47,6 +47,8 @@ fun HomeScreen(viewModel: HomeViewModel, event: (HomeEvent) -> Unit) {
             CustomTopBar(
                 title = "Главная",
                 isAddIconVisible = true,
+                isSettingsIconVisible = true,
+                onSettingsIconClick = { event(HomeEvent.OnSettingsClick) },
                 onAddIconClick = { event(HomeEvent.OnAddNewClick) }
             )
         }

@@ -8,6 +8,7 @@ import java.security.InvalidParameterException
 sealed class Screen {
     object Home : Screen()
     object AddNewCar : Screen()
+    object Settings : Screen()
     data class FullCarInfo(val id: Int) : Screen()
 }
 
@@ -27,5 +28,6 @@ fun Fragment.navigate(to: Screen, from: Screen) {
                 Bundle().apply { putInt("id", to.id) }
             )
         }
+        Screen.Settings -> findNavController().navigate(R.id.settings_fragment)
     }
 }

@@ -4,30 +4,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.surfit.data.dto.ApiAvailableForViewingIds
 import com.example.surfit.data.dto.ApiCarsDatabase
 import com.example.surfit.utils.Constants.CARS_TABLE_NAME
-import com.example.surfit.utils.Constants.IDS_TABLE_NAME
 
 @Dao
 interface CarsDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveId(id: ApiAvailableForViewingIds)
-
-    @Query("SELECT COUNT(*) FROM $IDS_TABLE_NAME")
-    suspend fun sizeOfIds(): Int
-
-    @Query("SELECT * FROM $IDS_TABLE_NAME")
-    suspend fun getAllIds(): List<ApiAvailableForViewingIds>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(list: List<ApiCarsDatabase>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(record: ApiCarsDatabase): Long
-
-    @Query("DELETE FROM $CARS_TABLE_NAME")
-    suspend fun deleteAll()
 
     @Query("DELETE FROM $CARS_TABLE_NAME WHERE id = :id")
     suspend fun deleteById(id: Int): Int

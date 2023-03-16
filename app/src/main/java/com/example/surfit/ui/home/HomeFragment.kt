@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.surfit.Screen
 import com.example.surfit.navigate
 import com.example.surfit.ui.theme.SurfItTheme
@@ -48,6 +49,7 @@ class HomeFragment : Fragment() {
                             }
                             HomeEvent.OnDoPurchaseClick -> doPurchase()
                             HomeEvent.OnDismissPurchaseClick -> viewModel.dismissPurchase()
+                            HomeEvent.OnSettingsClick -> navigate(Screen.Settings, Screen.Home)
                         }
                     }
                 }

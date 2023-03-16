@@ -11,7 +11,8 @@ import com.example.surfit.utils.Constants.CARS_TABLE_NAME
 @Database(entities = [ApiCarsDatabase::class, ApiAvailableForViewingIds::class], version = 1)
 abstract class CarsDatabase : RoomDatabase() {
 
-    abstract fun dao(): CarsDao
+    abstract fun carsDao(): CarsDao
+    abstract fun idsDao(): IdsDao
 
     companion object {
         @Volatile

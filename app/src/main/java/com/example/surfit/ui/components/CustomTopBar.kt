@@ -23,6 +23,7 @@ fun CustomTopBar(
     onBackIconClick: () -> Unit = {},
     isAddIconVisible: Boolean = false,
     onAddIconClick: () -> Unit = {},
+    isSettingsIconVisible: Boolean = false,
     onSettingsIconClick: () -> Unit = {},
 ) {
     TopAppBar(backgroundColor = White) {
@@ -66,18 +67,20 @@ fun CustomTopBar(
                     }
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clip(CircleShape)
-                        .clickable { onSettingsIconClick() },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_settings),
-                        contentDescription = null,
-                        tint = PlaceholderGray
-                    )
+                if (isSettingsIconVisible) {
+                    Box(
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clip(CircleShape)
+                            .clickable { onSettingsIconClick() },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_settings),
+                            contentDescription = null,
+                            tint = PlaceholderGray
+                        )
+                    }
                 }
             }
         }

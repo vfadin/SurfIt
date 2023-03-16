@@ -22,19 +22,19 @@ class HomeRepo(
     }
 
     override suspend fun getCars(): List<Car> {
-        return database.dao().getAll().map { it.toCar() }
+        return database.carsDao().getAll().map { it.toCar() }
     }
 
     override suspend fun getCar(id: Int): Car? {
-        database.dao().apply {
+        database.idsDao().apply {
             val addedCarsCount = SharedPreferences(context).restoreAddAttemptNumber()
             if (sizeOfIds() < FREE_VIEW_ATTEMPTS_COUNT + addedCarsCount || isTokenPaid()) {
                 saveId(ApiAvailableForViewingIds(id))
-                return database.dao().getById(id)?.toCar()
+                return database.carsDao().getById(id)?.toCar()
             } else {
                 getAllIds().forEach {
                     if (it.id == id) {
-                        return database.dao().getById(id)?.toCar()
+                        return database.carsDao().getById(id)?.toCar()
                     }
                 }
             }
@@ -47,12 +47,16 @@ class HomeRepo(
             val prefs = SharedPreferences(context)
             val attempt = prefs.restoreAddAttemptNumber()
             if (attempt < FREE_ADD_ATTEMPTS_COUNT || isTokenPaid()) {
-                database.dao().apply {
+                database.carsDao().apply {
                     val newId = insert(ApiCarsDatabase(0, name, year, engineCapacity, createdAt))
-                    saveId(ApiAvailableForViewingIds(newId.toInt()))
+                    database.idsDao().saveId(ApiAvailableForViewingIds(newId.toInt()))
                     prefs.saveAddAttemptNumber(attempt + 1)
                 }
             }
         }
+    }
+
+    override suspend fun clearIds() {
+        database.idsDao().deleteAllIds()
     }
 }
