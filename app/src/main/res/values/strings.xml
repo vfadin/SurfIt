@@ -48,4 +48,17 @@
     <string name="placeholder_input_name">Введите название</string>
     <string name="placeholder_input_year">Введите год выпуска</string>
     <string name="placeholder_input_engine_capacity">Введите объём двигателя</string>
+    <string name="title_add_car">Добавить автомобиль</string>
+    <string name="label_save">Сохранить</string>
+    <string name="label_add_photo">Добавить фото</string>
+    <string name="label_change_photo">Изменить фото</string>
+    <string name="label_added_at">\"Автомобиль был добавлен в коллекцию \"</string>
+    <string name="label_year">\" года выпуска\"</string>
+    <string name="sort_name">По названию</string>
+    <string name="sort_year">По году выпуска</string>
+    <string name="sort_capacity">По объему двигателя</string>
+    <string name="sort_default">По умолчанию</string>
+    <string name="title_main">Главная</string>
+    <string name="title_settings">Настройки</string>
+    <string name="label_restore_init_state">Восстановить исходное состояние</string>
 </resources>

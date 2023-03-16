@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -39,13 +40,13 @@ fun FullCarInfoScreen(viewModel: FullCarInfoViewModel, onBackClick: () -> Unit) 
         ) {
             car?.apply {
                 Text(
-                    text = "Автомобиль был добавлен в коллекцию $createdAt",
+                    text = stringResource(R.string.label_added_at) + createdAt,
                     modifier = Modifier.fillMaxWidth(),
                     style = MaterialTheme.typography.body1,
                     color = PlaceholderGray
                 )
                 Text(
-                    text = "$name, $year года выпуска",
+                    text = name + ", " + year + stringResource(R.string.label_year),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 16.dp),

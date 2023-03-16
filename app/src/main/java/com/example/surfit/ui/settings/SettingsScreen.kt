@@ -9,14 +9,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.surfit.R
 import com.example.surfit.ui.components.CustomTopBar
 
 @Composable
 fun SettingsScreen(onRestoreClick: () -> Unit) {
     Scaffold(
         topBar = {
-            CustomTopBar(title = "Настройки", isSettingsIconVisible = false)
+            CustomTopBar(title = stringResource(R.string.title_settings), isSettingsIconVisible = false)
         }
     ) { paddingValues ->
         Box(
@@ -29,7 +31,7 @@ fun SettingsScreen(onRestoreClick: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { onRestoreClick() }
             ) {
-                Text(text = "Восстановить исходное состояние")
+                Text(text = stringResource(R.string.label_restore_init_state))
             }
         }
     }

@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FullCarInfoFragment : Fragment() {
 
-    val viewModel: FullCarInfoViewModel by viewModels()
+    private val viewModel: FullCarInfoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
