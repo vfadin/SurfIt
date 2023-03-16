@@ -1,6 +1,7 @@
 package com.example.surfit.data.repo
 
 import android.content.Context
+import android.net.Uri
 import com.example.surfit.data.datasource.database.CarsDatabase
 import com.example.surfit.data.dto.ApiAvailableForViewingIds
 import com.example.surfit.data.dto.ApiCarsDatabase
@@ -17,11 +18,11 @@ class HomeRepo(
 ) : IHomeRepo {
 
     private fun isTokenPaid(): Boolean {
-        println(SharedPreferences(context).restorePurchaseToken() == "PAID_TOKEN")
         return SharedPreferences(context).restorePurchaseToken() == "PAID_TOKEN"
     }
 
     override suspend fun getCars(): List<Car> {
+        println(database.carsDao().getAll().map { it.toCar() })
         return database.carsDao().getAll().map { it.toCar() }
     }
 
@@ -48,7 +49,9 @@ class HomeRepo(
             val attempt = prefs.restoreAddAttemptNumber()
             if (attempt < FREE_ADD_ATTEMPTS_COUNT || isTokenPaid()) {
                 database.carsDao().apply {
-                    val newId = insert(ApiCarsDatabase(0, name, year, engineCapacity, createdAt))
+                    val newId = insert(
+                        ApiCarsDatabase(0, name, year, engineCapacity, "$photoUri", createdAt)
+                    )
                     database.idsDao().saveId(ApiAvailableForViewingIds(newId.toInt()))
                     prefs.saveAddAttemptNumber(attempt + 1)
                 }

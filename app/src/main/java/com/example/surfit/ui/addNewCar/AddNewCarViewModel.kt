@@ -47,13 +47,13 @@ class AddNewCarViewModel @Inject constructor(
     }
 
     private fun onSaveClick() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (checkValues()) {
+        if (checkValues()) {
+            viewModelScope.launch(Dispatchers.IO) {
                 screenState.apply {
                     homeRepo.insertCar(
                         Car(
                             name = name,
-                            photo = imageUri,
+                            photoUri = imageUri,
                             year = year.toIntOrNull() ?: 0,
                             engineCapacity = engineCapacity.toDoubleOrNull() ?: .0,
                             createdAt = SimpleDateFormat(

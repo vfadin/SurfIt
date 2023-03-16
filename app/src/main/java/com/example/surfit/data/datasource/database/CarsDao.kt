@@ -16,6 +16,9 @@ interface CarsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(record: ApiCarsDatabase): Long
 
+    @Query("DELETE FROM $CARS_TABLE_NAME")
+    suspend fun deleteAll()
+
     @Query("DELETE FROM $CARS_TABLE_NAME WHERE id = :id")
     suspend fun deleteById(id: Int): Int
 

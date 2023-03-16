@@ -85,8 +85,9 @@ fun CarItem(car: Car, event: (HomeEvent) -> Unit) {
             .clip(RoundedCornerShape(16.dp))
             .clickable { event(HomeEvent.OnItemClick(car.id)) }
     ) {
+
         GlideImage(
-            model = car.photo,
+            model = car.photoUri,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             failure = placeholder(R.drawable.image_placeholder)

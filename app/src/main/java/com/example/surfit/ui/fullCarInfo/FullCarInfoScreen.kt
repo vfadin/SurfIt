@@ -52,7 +52,7 @@ fun FullCarInfoScreen(viewModel: FullCarInfoViewModel, onBackClick: () -> Unit) 
                     style = MaterialTheme.typography.h2
                 )
                 GlideImage(
-                    model = photo,
+                    model = photoUri,
                     contentDescription = null,
                     failure = placeholder(R.drawable.image_placeholder)
                 )

@@ -19,16 +19,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.content.FileProvider
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.surfit.R
 import com.example.surfit.ui.components.CustomTextField
 import com.example.surfit.ui.components.CustomTopBar
 import com.example.surfit.ui.components.ErrorTextRow
+import com.example.surfit.utils.FileUtil
+import java.io.File
 
 @Composable
 fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Unit) {
@@ -99,11 +103,27 @@ fun AddNewCarScreen(viewModel: AddNewCarViewModel, event: (AddNewCarEvent) -> Un
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun PickImageButton(event: (AddNewCarEvent) -> Unit) {
+    val context = LocalContext.current
     var imageUri by remember { mutableStateOf(Uri.EMPTY) }
     val imagePicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
             imageUri = uri ?: Uri.EMPTY
+            val file = File(context.filesDir, FileUtil.getFileName(imageUri, context)).apply {
+                if (exists()) {
+                    delete()
+                }
+            }
+            context.contentResolver.openInputStream(imageUri)?.apply {
+                file.writeBytes(buffered().readBytes())
+                close()
+            }
+            imageUri = FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.provider",
+                file
+            )
+            println(imageUri)
             event(AddNewCarEvent.OnImageChosen(imageUri))
         }
     )

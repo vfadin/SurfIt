@@ -17,5 +17,7 @@ data class ApiCarsDatabase(
     @ColumnInfo
     val engineCapacity: Double,
     @ColumnInfo
+    val image: String,
+    @ColumnInfo
     val createdAt: String
 )
